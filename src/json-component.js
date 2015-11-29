@@ -54,11 +54,17 @@ class Component {
   }
 
   _content() {
-    if (isArray(this._currentElement.props.children)) {
+    var children = this._currentElement.props.children;
+
+    if (isArray(children)) {
       return null;
     }
 
-    return this._currentElement.props.children;
+    if (!CONTENT_TYPES[typeof children]) {
+      return null;
+    }
+
+    return children;
   }
 
   _props() {
