@@ -6,7 +6,7 @@ node_js:
     - 0.12
     - 0.10
 env:
-  - CODECLIMATE_REPO_TOKEN=s
+  - CODECLIMATE_REPO_TOKEN=de18903c69c5de2b71b09a4db5ac2a11d89c4d0fa80488a536767706f8bb4ac6
 script:
   - npm test
 after_success:
