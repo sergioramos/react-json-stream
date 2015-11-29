@@ -60,7 +60,7 @@ class Component {
       return null;
     }
 
-    if (!CONTENT_TYPES[typeof children]) {
+    if (!includes(CONTENT_TYPES, typeof children)) {
       return null;
     }
 
@@ -92,7 +92,7 @@ class Component {
 
   _updateComponent(transaction, prev, next, context) {
     const getContent = function(children) {
-      return includes(CONTENT_TYPES, children) ? children : null;
+      return includes(CONTENT_TYPES, typeof children) ? children : null;
     };
 
     const getHTML = function(dangerouslySetInnerHTML) {
