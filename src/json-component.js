@@ -10,6 +10,7 @@ const isArray = require('lodash.isarray');
 const assign = require('lodash.assign');
 const rest = require('lodash.rest');
 const isUndefined = require('lodash.isundefined');
+const defaults = require('lodash.defaults');
 const isNull = require('lodash.isnull');
 const format = require('util').format;
 
@@ -53,17 +54,19 @@ class Component {
   }
 
   _content(element) {
-    if (isArray(element.props.children)) {
+    if (isArray(this._currentElement.props.children)) {
       return null;
     }
 
-    return element.props.children;
+    return this._currentElement.props.children;
   }
 
-  _props(element) {
-    return zip(filter(pairs(element.props), function(kv) {
+  _props() {
+    return defaults({
+      key: this._currentElement.key
+    }, zip(filter(pairs(this._currentElement.props), function(kv) {
       return kv[0] !== 'children';
-    }));
+    })));
   }
 
   _mountNode() {
@@ -74,8 +77,8 @@ class Component {
       parent: parent.length ? format('.%s', parent.join('.')) : '',
       name: this._currentElement.type,
       id: this._rootNodeID,
-      props: this._props(this._currentElement),
-      content: this._content(this._currentElement)
+      props: this._props(),
+      content: this._content()
     };
 
     return JSONMount.setNode(this._rootNodeID, node);
