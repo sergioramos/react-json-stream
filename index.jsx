@@ -1,5 +1,6 @@
+require('colors')
+
 var Emitter = require('component-emitter');
-var format = require('util').format;
 var React = require('./src/react-json');
 
 var Child = React.createClass({
@@ -69,9 +70,13 @@ var str = React.render(React.createElement(App));
 
 str.on('readable', function () {
   console.log('readable');
-  // console.log(JSON.stringify(str.read(), null, 2));
+  str.read()
+});
+
+str.on('end', function() {
+
 });
 
 setTimeout(function() {
   React.unmountComponentAtNode(str);
-}, 1500);
+}, 8000);
