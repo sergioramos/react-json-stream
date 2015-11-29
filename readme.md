@@ -16,23 +16,23 @@ var React = require('react-json-stream');
 
 
 var App = React.createClass({
-  getInitialState: function getInitialState() {
+  getInitialState: function() {
     return {
       i: 0
     };
   },
-  componentDidMount: function componentDidMount() {
+  componentDidMount: function() {
     this.interval = setInterval(this.tick, 500);
   },
-  componentWillUnmount: function componentWillUnmount() {
+  componentWillUnmount: function() {
     clearInterval(this.interval);
   },
-  tick: function tick() {
+  tick: function() {
     this.setState({
       i: this.state.i + 1
     });
   },
-  render: function render() {
+  render: function() {
     return (<ul>
       <li key='my-li'>{this.state.i}</li>
     </ul>);
@@ -48,73 +48,62 @@ setTimeout(function() {
 ```
 
 ```json
-[
-  {
+[{
+  "children": [],
+  "parent": "",
+  "name": "ul",
+  "id": ".0",
+  "props": {},
+  "content": null
+}, {
+  "children": [{
     "children": [],
-    "parent": "",
-    "name": "ul",
-    "id": ".0",
-    "props": {},
-    "content": null
-  },
-  {
-    "children": [
-      {
-        "children": [],
-        "parent": ".0",
-        "name": "li",
-        "id": ".0.$my-li",
-        "props": {
-          "key": "my-li"
-        },
-        "content": 1
-      }
-    ],
-    "parent": "",
-    "name": "ul",
-    "id": ".0",
-    "props": {},
-    "content": null
-  },
-  {
-    "children": [
-      {
-        "children": [],
-        "parent": ".0",
-        "name": "li",
-        "id": ".0.$my-li",
-        "props": {
-          "key": "my-li"
-        },
-        "content": 2
-      }
-    ],
-    "parent": "",
-    "name": "ul",
-    "id": ".0",
-    "props": {},
-    "content": null
-  },
-  {
-    "children": [
-      {
-        "children": [],
-        "parent": ".0",
-        "name": "li",
-        "id": ".0.$my-li",
-        "props": {
-          "key": "my-li"
-        },
-        "content": 3
-      }
-    ],
-    "parent": "",
-    "name": "ul",
-    "id": ".0",
-    "props": {},
-    "content": null
-  }
-]
+    "parent": ".0",
+    "name": "li",
+    "id": ".0.$my-li",
+    "props": {
+      "key": "my-li"
+    },
+    "content": 1
+  }],
+  "parent": "",
+  "name": "ul",
+  "id": ".0",
+  "props": {},
+  "content": null
+}, {
+  "children": [{
+    "children": [],
+    "parent": ".0",
+    "name": "li",
+    "id": ".0.$my-li",
+    "props": {
+      "key": "my-li"
+    },
+    "content": 2
+  }],
+  "parent": "",
+  "name": "ul",
+  "id": ".0",
+  "props": {},
+  "content": null
+}, {
+  "children": [{
+    "children": [],
+    "parent": ".0",
+    "name": "li",
+    "id": ".0.$my-li",
+    "props": {
+      "key": "my-li"
+    },
+    "content": 3
+  }],
+  "parent": "",
+  "name": "ul",
+  "id": ".0",
+  "props": {},
+  "content": null
+}]
 ```
 
 ## license
