@@ -156,7 +156,7 @@ class Component {
   }
 
   unmountComponent() {
-    JSONMount.purgeID(this._rootNodeID);
+    JSONMount.purgeId(this._rootNodeID);
     this.unmountChildren();
     this._rootNodeID = null;
   }

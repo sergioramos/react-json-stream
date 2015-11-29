@@ -64,7 +64,10 @@ const setNode = function(id, node) {
 };
 
 const purgeId = function(id) {
+  map(getChildrenIds(id), purgeId);
   delete nodeCache[id];
+  delete components[id];
+  delete streams[id];
 };
 
 const buildTree = function(id) {
@@ -157,15 +160,8 @@ const mountComponent = function(component, rootId, stream, context) {
 };
 
 const unmountComponent = function(rootId, component, container) {
-  const cleanNode = function(id) {
-    map(getChildrenIds(id), cleanNode);
-    delete nodeCache[id];
-    delete components[id];
-    delete streams[id];
-  };
-
   ReactReconciler.unmountComponent(component);
-  cleanNode(rootId);
+  purgeId(rootId);
 };
 
 var ReactMount = {
