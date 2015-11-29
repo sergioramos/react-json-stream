@@ -4,7 +4,7 @@ const JSONMount = require('./json-mount');
 module.exports = {
   processChildrenUpdates: JSONIDOperations.dangerouslyProcessChildrenUpdates,
   replaceNodeWithMarkupByID: JSONIDOperations.dangerouslyReplaceNodeWithMarkupByID,
-  unmountIDFromEnvironment: function(rootNodeID) {
-    JSONMount.purgeID(rootNodeID);
+  unmountIDFromEnvironment: function(id) {
+    JSONMount.purgeId(id);
   }
 };

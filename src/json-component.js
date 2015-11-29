@@ -33,19 +33,18 @@ class Component {
     this._rootNodeID = rootID;
 
     if (isArray(this._currentElement.props.children)) {
-      this.mountChildren(
-        this._currentElement.props.children,
-        transaction,
-        context
-      );
+      this._mountChildren(transaction, context);
     }
 
-    const node = this._mountNode(
-      this._currentElement,
-      rootID
-    );
+    return this._mountNode();
+  }
 
-    return node;
+  _mountChildren(transaction, context) {
+    this.mountChildren(
+      this._currentElement.props.children,
+      transaction,
+      context
+    );
   }
 
   _content(element) {
@@ -62,19 +61,19 @@ class Component {
     }));
   }
 
-  _mountNode(element, rootId) {
-    var path = rootId.split(/\./).filter(Boolean);
+  _mountNode() {
+    var path = this._rootNodeID.split(/\./).filter(Boolean);
     var parent = rest(path.reverse()).reverse();
 
     const node = {
       parent: parent.length ? format('.%s', parent.join('.')) : undefined,
-      name: element.type,
-      id: rootId,
-      props: this._props(element),
-      content: this._content(element)
+      name: this._currentElement.type,
+      id: this._rootNodeID,
+      props: this._props(this._currentElement),
+      content: this._content(this._currentElement)
     };
 
-    return JSONMount.setNode(rootId, node);
+    return JSONMount.setNode(this._rootNodeID, node);
   }
 
   _updateComponent(transaction, prev, next, context) {
@@ -147,16 +146,13 @@ class Component {
       this.updateChildren(children.next, transaction, context);
     }
 
-    this._mountNode(
-      this._currentElement,
-      this._rootNodeID
-    );
+    return this._mountNode();
   }
 
   receiveComponent(element, transaction, context) {
     const prev = this._currentElement;
     this._currentElement = element;
-    this._updateComponent(transaction, prev, element, context);
+    return this._updateComponent(transaction, prev, element, context);
   }
 
   unmountComponent() {

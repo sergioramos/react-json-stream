@@ -2,19 +2,15 @@ const ReactUpdates = require('react/lib/ReactUpdates');
 const ReactReconciler = require('react/lib/ReactReconciler');
 const instantiateReactComponent = require('react/lib/instantiateReactComponent');
 const ReactInstanceHandles = require('react/lib/ReactInstanceHandles');
-const has = require('lodash.has');
 const isEqual = require('lodash.isequal');
 const keys = require('lodash.keys');
 const map = require('lodash.map');
 const defaults = require('lodash.defaults');
 const filter = require('lodash.filter');
-const pullAt = require('lodash.pullat');
 const pluck = require('lodash.pluck');
-const isArray = require('lodash.isarray');
 const isFunction = require('lodash.isfunction');
 const pairs = require('lodash.pairs');
 const first = require('lodash.first');
-const buildArray = require('build-array');
 const TreeStream = require('./tree-stream');
 
 
@@ -204,7 +200,7 @@ var ReactMount = {
   getID: getId,
   getNode: getNode,
   setNode: setNode,
-  purgeID: purgeId
+  purgeId: purgeId
 };
 
 module.exports = ReactMount;
