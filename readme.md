@@ -1,0 +1,3 @@
+# react-json
+
+[![](https://img.shields.io/travis/ramitos/react-json.svg)](https://travis-ci.org/ramitos/react-json) [![](https://img.shields.io/codeclimate/coverage/github/ramitos/react-json.svg)](https://codeclimate.com/github/ramitos/react-json/coverage) [![](https://img.shields.io/npm/v/react-json.svg)](https://www.npmjs.com/package/@ramitos/react-json) [![](https://img.shields.io/david/ramitos/react-json.svg)](https://david-dm.org/ramitos/react-json) [![](https://img.shields.io/codeclimate/github/ramitos/react-json.svg)](https://codeclimate.com/github/ramitos/react-json) [![](https://img.shields.io/npm/l/react-json.svg)](https://www.npmjs.com/package/@ramitos/react-json)

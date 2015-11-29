@@ -8,7 +8,6 @@ const map = require('lodash.map');
 const defaults = require('lodash.defaults');
 const filter = require('lodash.filter');
 const pluck = require('lodash.pluck');
-const isFunction = require('lodash.isfunction');
 const pairs = require('lodash.pairs');
 const first = require('lodash.first');
 const TreeStream = require('./tree-stream');
@@ -25,16 +24,8 @@ const getId = function(node) {
   return node.id;
 };
 
-const isValid = function(node, id) {
-  if (!node) {
-    return false;
-  }
-
-  if (findStreamForId(id)) {
-    return true;
-  }
-
-  return false;
+const getNode = function(id) {
+  return nodeCache[id];
 };
 
 const getChildrenIds = function(id) {
@@ -43,10 +34,6 @@ const getChildrenIds = function(id) {
   }), function(node) {
     return node.parent === id;
   }), 'id');
-};
-
-const getNode = function(id) {
-  return nodeCache[id];
 };
 
 const setNode = function(id, node) {
@@ -79,21 +66,6 @@ const buildTree = function(id) {
   }, node);
 };
 
-const tick = function(id) {
-  intervals[id] = undefined;
-
-  const isDirty = function() {
-    dirty[id] = false;
-    streams[id].writeTree(buildTree(id));
-  };
-
-  if (dirty[id]) {
-    isDirty();
-  }
-
-  startLoop(id);
-};
-
 const startLoop = function(id) {
   if (intervals[id]) {
     return;
@@ -107,6 +79,21 @@ const startLoop = function(id) {
   intervals[id] = setTimeout(function() {
     tick(id);
   }, INTERVAL);
+};
+
+const tick = function(id) {
+  delete intervals[id];
+
+  const isDirty = function() {
+    dirty[id] = false;
+    streams[id].writeTree(buildTree(id));
+  };
+
+  if (dirty[id]) {
+    isDirty();
+  }
+
+  startLoop(id);
 };
 
 const getNodeInContainer = function(stream) {
@@ -140,12 +127,6 @@ const register = function(stream, component) {
   return rootId;
 };
 
-const findStreamForId = function(id) {
-  var rootId = ReactInstanceHandles.getReactRootIDFromNodeID(id);
-  return streams[rootId];
-};
-
-// changed
 const mountComponent = function(component, rootId, stream, context) {
   var transaction = ReactUpdates.ReactReconcileTransaction.getPooled();
 
@@ -159,23 +140,19 @@ const mountComponent = function(component, rootId, stream, context) {
   ReactUpdates.ReactReconcileTransaction.release(transaction);
 };
 
-const unmountComponent = function(rootId, component, container) {
+const unmountComponent = function(rootId, component) {
   ReactReconciler.unmountComponent(component);
   purgeId(rootId);
 };
 
 var ReactMount = {
-  render: function(element, callback) {
+  render: function(element) {
     var stream = new TreeStream();
 
     var component = instantiateReactComponent(element);
     var rootId = register(stream, component);
 
     ReactUpdates.batchedUpdates(mountComponent, component, rootId, stream, false);
-
-    if (isFunction(callback)) {
-      callback();
-    }
 
     return stream;
   },

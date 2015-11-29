@@ -1,11 +1,9 @@
-const DOMChildrenOperations = require('react/lib/DOMChildrenOperations');
 const escapeTextContentForBrowser = require('react/lib/escapeTextContentForBrowser');
 const assign = require('lodash.assign');
 const JSONComponentEnvironment = require('./json-component-environment');
-const JSONMount = require('./json-mount');
 
 
-const JSONTextComponent = function(props) {};
+const JSONTextComponent = function() {};
 
 const Mixin = {
   construct: function(text) {
@@ -15,10 +13,10 @@ const Mixin = {
     this._rootNodeID = null;
     this._mountIndex = 0;
   },
-  mountComponent: function(rootID, transaction, context) {
+  mountComponent: function() {
     return escapeTextContentForBrowser(this._stringText);
   },
-  receiveComponent: function(nextText, transaction) {
+  receiveComponent: function(nextText) {
     this._currentElement = nextText;
   },
   unmountComponent: function() {

@@ -34,6 +34,6 @@ TreeStream.prototype._read = function(size, tryit) {
   this._waiting = false;
 
   if (!this.push(this._holding.shift())) {
-    return this._read();
+    this._read();
   }
 };

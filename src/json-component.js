@@ -2,7 +2,6 @@
 
 const ReactMultiChild = require('react/lib/ReactMultiChild');
 const JSONMount = require('./json-mount');
-const map = require('lodash.map');
 const includes = require('lodash.includes');
 const filter = require('lodash.filter');
 const zip = require('lodash.zipobject');
@@ -10,6 +9,8 @@ const pairs = require('lodash.pairs');
 const isArray = require('lodash.isarray');
 const assign = require('lodash.assign');
 const rest = require('lodash.rest');
+const isUndefined = require('lodash.isundefined');
+const isNull = require('lodash.isnull');
 const format = require('util').format;
 
 
@@ -17,6 +18,10 @@ const CONTENT_TYPES = [
   'string',
   'number'
 ];
+
+const exists = function(v) {
+  return !isNull(v) && !isUndefined(v);
+};
 
 class Component {
   constructor(tag) {
@@ -49,7 +54,7 @@ class Component {
 
   _content(element) {
     if (isArray(element.props.children)) {
-      return;
+      return null;
     }
 
     return element.props.children;
@@ -66,7 +71,7 @@ class Component {
     var parent = rest(path.reverse()).reverse();
 
     const node = {
-      parent: parent.length ? format('.%s', parent.join('.')) : undefined,
+      parent: parent.length ? format('.%s', parent.join('.')) : '',
       name: this._currentElement.type,
       id: this._rootNodeID,
       props: this._props(this._currentElement),
@@ -86,19 +91,19 @@ class Component {
     };
 
     const getChildren = function(content, children) {
-      return content != null ? null : children;
+      return exists(content) ? null : children;
     };
 
     const hasContentOrHtml = function(content, html) {
-      return content != null || html != null;
+      return exists(content) || exists(html);
     };
 
     const shouldRemove = function(what) {
-      return what.prev != null && what.next == null;
+      return exists(what.prev) && !exists(what.next);
     };
 
     const shouldUpdate = function(what) {
-      return what.next != null && (what.prev !== what.next);
+      return exists(what.next) && (what.prev !== what.next);
     };
 
     const content = {
@@ -129,7 +134,7 @@ class Component {
     const update = {
       content: shouldUpdate(content),
       html: shouldUpdate(html),
-      children: children.next != null
+      children: exists(children.next)
     };
 
     if (remove.children) {

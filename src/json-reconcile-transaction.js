@@ -4,12 +4,12 @@ const Transaction = require('react/lib/Transaction');
 const assign = require('lodash.assign');
 
 
-function JSONReconcileTransaction() {
+var JSONReconcileTransaction = function() {
   this.reinitializeTransaction();
   this.renderToStaticMarkup = false;
   this.reactMountReady = CallbackQueue.getPooled(null);
   this.useCreateElement = false;
-}
+};
 
 const Mixin = {
   getTransactionWrappers: function() {
