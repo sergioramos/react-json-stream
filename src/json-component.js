@@ -53,7 +53,7 @@ class Component {
     );
   }
 
-  _content(element) {
+  _content() {
     if (isArray(this._currentElement.props.children)) {
       return null;
     }
