@@ -86,6 +86,11 @@ const tick = function(id) {
 
   const isDirty = function() {
     dirty[id] = false;
+
+    if (!streams[id]) {
+      return;
+    }
+
     streams[id].writeTree(buildTree(id));
   };
 
