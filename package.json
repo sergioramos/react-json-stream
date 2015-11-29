@@ -37,7 +37,8 @@
     "lodash.pluck": "^3.1.2",
     "lodash.rest": "^3.0.0",
     "lodash.zipobject": "^3.0.0",
-    "react": "^0.14.3"
+    "react": "^0.14.3",
+    "readable-stream": "^2.0.4"
   },
   "devDependencies": {
     "babel-cli": "^6.2.0",
