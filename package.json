@@ -1,8 +1,8 @@
 {
-  "name": "react-json",
+  "name": "react-json-stream-stream",
   "version": "1.0.0",
   "license": "BSD",
-  "main": "dist/react-json.js",
+  "main": "dist/react-json-stream.js",
   "description": "react > stream > json",
   "keywords": [
     "react",
@@ -12,7 +12,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/ramitos/react-json.git"
+    "url": "git://github.com/ramitos/react-json-stream.git"
   },
   "author": "Sérgio Ramos <mail@sergioramos.me>",
   "scripts": {
