@@ -24,6 +24,8 @@ const exists = function(v) {
   return !isNull(v) && !isUndefined(v);
 };
 
+const noop = function() {};
+
 class Component {
   constructor(tag) {
     this._tag = tag.toLowerCase();
@@ -68,8 +70,10 @@ class Component {
   }
 
   _props() {
+    var key = this._currentElement.key;
+
     return defaults({
-      key: this._currentElement.key
+      key: exists(key) ? key : noop()
     }, zip(filter(pairs(this._currentElement.props), function(kv) {
       return kv[0] !== 'children';
     })));
