@@ -1,3 +1,5 @@
+require('webpack-clear-require')();
+
 const ReactVersion = require('react/lib/ReactVersion');
 const ReactIsomorphic = require('react/lib/ReactIsomorphic');
 const assign = require('lodash.assign');
